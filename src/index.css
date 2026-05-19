@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #22d3ee;
+  --color-accent-dark: #0891b2;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#080808] text-gray-400 overflow-x-hidden font-sans;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display text-white tracking-tighter;
+  }
+
+  ::selection {
+    @apply bg-accent text-black;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
+
+.section-label {
+  @apply text-xs font-bold uppercase text-accent mb-3 tracking-[0.2em];
+}
+
+.text-gradient {
+  background-image: linear-gradient(to right, var(--color-accent), var(--color-accent-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cursor-glow {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 40px 10px rgba(34, 211, 238, 0.6);
+}
+
+.cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  width: 16px;
+  height: 16px;
+  background-color: rgba(34, 211, 238, 0.3);
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(1.1); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
