@@ -9,11 +9,11 @@
 
 @layer base {
   body {
-    @apply bg-[#080808] text-gray-400 overflow-x-hidden font-sans;
+    @apply bg-white text-gray-600 overflow-x-hidden font-sans;
   }
   
   h1, h2, h3, h4 {
-    @apply font-display text-white tracking-tighter;
+    @apply font-display text-gray-900 tracking-tighter;
   }
 
   ::selection {
@@ -22,7 +22,7 @@
 }
 
 .glass {
-  @apply bg-white/5 backdrop-blur-md border border-white/10;
+  @apply bg-white/60 backdrop-blur-md border border-gray-200 shadow-sm;
 }
 
 .section-label {
@@ -44,9 +44,8 @@
   height: 32px;
   background-color: var(--color-accent);
   border-radius: 50%;
-  mix-blend-mode: screen;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 40px 10px rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 40px 10px rgba(34, 211, 238, 0.4);
 }
 
 .cursor-trail {
@@ -55,9 +54,8 @@
   z-index: 9998;
   width: 16px;
   height: 16px;
-  background-color: rgba(34, 211, 238, 0.3);
+  background-color: rgba(34, 211, 238, 0.2);
   border-radius: 50%;
-  mix-blend-mode: screen;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease-out;
 }

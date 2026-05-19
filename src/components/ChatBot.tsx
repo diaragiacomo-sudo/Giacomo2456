@@ -56,23 +56,26 @@ export default function ChatBot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] h-[500px] glass rounded-2xl flex flex-col shadow-2xl overflow-hidden"
+            className="mb-4 w-[350px] h-[550px] bg-white border border-gray-200 rounded-3xl flex flex-col shadow-2xl overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5">
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Bot size={18} className="text-accent" />
+                <div className="w-10 h-10 rounded-2xl bg-accent text-black flex items-center justify-center font-bold text-lg shadow-sm">
+                  GD
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">Giacomo assistant</h3>
-                  <p className="text-[10px] text-accent font-medium">Online</p>
+                  <h3 className="text-sm font-bold text-gray-900 uppercase tracking-tight">Giacomo AI</h3>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Online</span>
+                  </div>
                 </div>
               </div>
               <button
                 id="close-chat"
                 onClick={() => setIsOpen(false)}
-                className="p-1 hover:bg-white/10 rounded-full transition-colors text-neutral-400 hover:text-white"
+                className="p-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-400 hover:text-gray-900"
               >
                 <X size={20} />
               </button>
@@ -82,14 +85,19 @@ export default function ChatBot() {
             <div
               id="chat-messages"
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10"
+              className="flex-1 overflow-y-auto p-5 space-y-6 scrollbar-thin scrollbar-thumb-gray-200"
             >
               {messages.length === 0 && (
-                <div className="text-center py-10 space-y-2">
-                  <Bot size={32} className="mx-auto text-white/20" />
-                  <p className="text-sm text-neutral-400 px-6">
-                    Ciao! Sono l'assistente di Giacomo. Chiedimi pure qualsiasi cosa sul suo lavoro!
-                  </p>
+                <div className="text-center py-12 space-y-4">
+                  <div className="w-16 h-16 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto border border-gray-100">
+                    <Bot size={32} className="text-accent" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-gray-900 font-bold">Ciao! Sono l'AI di Giacomo.</p>
+                    <p className="text-[11px] text-gray-500 px-6 font-light leading-relaxed">
+                      Chiedimi pure informazioni sulla sua esperienza, competenze o come contattarlo!
+                    </p>
+                  </div>
                 </div>
               )}
               {messages.map((message, i) => (
@@ -102,10 +110,10 @@ export default function ChatBot() {
                 >
                   <div
                     className={cn(
-                      "px-4 py-2 rounded-2xl text-sm",
+                      "px-4 py-3 rounded-2xl text-[13px] leading-relaxed shadow-sm",
                       message.role === 'user'
-                        ? "bg-accent text-neutral-900 rounded-tr-none"
-                        : "bg-white/10 text-white rounded-tl-none"
+                        ? "bg-accent text-black font-medium rounded-tr-none"
+                        : "bg-gray-100 text-gray-800 rounded-tl-none border border-gray-200"
                     )}
                   >
                     {message.content}
@@ -114,45 +122,38 @@ export default function ChatBot() {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 p-3 rounded-2xl rounded-tl-none flex gap-1">
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                      className="w-1.5 h-1.5 bg-accent/60 rounded-full"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
-                      className="w-1.5 h-1.5 bg-accent/60 rounded-full"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
-                      className="w-1.5 h-1.5 bg-accent/60 rounded-full"
-                    />
+                  <div className="bg-gray-100 p-4 rounded-2xl rounded-tl-none border border-gray-200 flex gap-1.5">
+                    {[0, 1, 2].map((i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                        className="w-1.5 h-1.5 bg-accent rounded-full"
+                      />
+                    ))}
                   </div>
                 </div>
               )}
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSubmit} className="p-4 border-t border-white/10 bg-white/5">
+            <form onSubmit={handleSubmit} className="p-5 border-t border-gray-100 bg-gray-50/50">
               <div className="relative">
                 <input
                   id="chat-input"
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Scrivi un messaggio..."
-                  className="w-full bg-white/10 border border-white/10 rounded-full py-2 pl-4 pr-12 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                  placeholder="Inviaci un messaggio..."
+                  className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-5 pr-14 text-[13px] text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/5 transition-all shadow-sm"
                 />
                 <button
                   id="send-message"
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 p-2 text-accent hover:bg-white/5 rounded-full disabled:opacity-50 transition-all"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-accent text-black rounded-xl disabled:opacity-50 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-accent/20"
                 >
-                  <Send size={18} />
+                  <Send size={16} />
                 </button>
               </div>
             </form>
